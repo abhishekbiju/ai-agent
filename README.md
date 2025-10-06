@@ -28,43 +28,6 @@ This project provides a Python service class, `FirecrawlService`, to simplify in
     ```
     You can get an API key from the [Firecrawl website](https://firecrawl.dev/).
 
-## Usage
-
-Here's a basic example of how to use the `FirecrawlService` class.
-
-```python
-from firecrawl_service import FirecrawlService
-
-# Initialize the service
-# This will automatically load the API key from your .env file
-firecrawl = FirecrawlService()
-
-# 1. Search for companies
-search_query = "CRM software"
-search_results = firecrawl.search_companies(query=search_query, num_results=3)
-
-if search_results and search_results.data:
-    print(f"Found {len(search_results.data)} results for '{search_query}':")
-    for result in search_results.data:
-        # The actual content of the result object may vary based on the firecrawl-py library version
-        print(f"- {result.get('title', 'No Title')}: {result.get('url')}")
-        # print(result) # Uncomment to see the full result object
-
-    # 2. Scrape one of the found pages
-    if search_results.data:
-        first_url = search_results.data[0].get('url')
-        if first_url:
-            print(f"\nScraping URL: {first_url}")
-            scraped_content = firecrawl.scrape_company_pages(url=first_url)
-            if scraped_content:
-                # The 'markdown' key holds the scraped content
-                print("\n--- Scraped Markdown Content ---")
-                print(scraped_content.get('markdown', 'No markdown content found.'))
-                print("------------------------------")
-else:
-    print("No search results found or an error occurred.")
-```
-
 ## Source
 
 This project is inspired by a project from Tech with Tim linked [here](https://youtu.be/xekw62yQu14?si=tXvaigf4cmm6zgVv)
